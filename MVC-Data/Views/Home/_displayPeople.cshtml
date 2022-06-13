@@ -1,0 +1,23 @@
+<div class="modal-content">
+
+
+    <div class="row" style="border: 1px solid black;">
+        <div class="col-md-8"><p>Name</p></div>
+        <div class="col-md-6"><p>City</p></div>
+        <div class="col-md-4"><p>Id</p></div>
+        <div class="col-md-2"><p>PhoneNumber</p></div>
+    </div>
+
+    @model IEnumerable<MVC_Data.Models.Person>
+    @foreach (var person in Model)
+    {
+<div class="row" style="border: 1px solid black;">
+    <div class="col-md-8">@person.Name</div>
+    <div class="col-md-6">@person.City</div>
+    <div class="col-md-4">@person.Id</div>
+    <div class="col-md-2">@person.PhoneNumber</div>
+</div>
+
+    }
+
+</div>

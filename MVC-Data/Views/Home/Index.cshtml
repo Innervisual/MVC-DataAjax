@@ -1,0 +1,98 @@
+﻿@model MVC_Data.Models.Person
+@{
+
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+<!-- Ajax Get to fetch the PartialView with list of people and display it on the page using JavaScript.-->
+<a class="btn btn-primary popup" data-url="Home/displayPeople" data-toggle="modal" data-target="#modal-create-edit-user" id="UserModel">People<i class="fa fa-plus"></i></a>
+
+
+
+
+<!-- Ajax Get to fetch the PartialView with list of people and display it on the page using JavaScript.-->
+<p>
+    Search by name or id (press delete to delete the person):
+    <br />
+    @Html.TextBox("Name")
+</p>
+<input class="btn btn-primary" type="button" value="Detail" id="Save" />
+
+
+<!--Delete btn-->
+<input class="btn btn-primary" type="button" value="Delete" id="Delete" />
+
+
+
+<!--displays Modal (the element that gets overwritten)-->
+
+<span id="msg" style="color:red;"></span>
+
+
+
+
+
+
+<script asp-append-version="true">
+    (function ($) {
+        function Index() {
+            var $this = this;
+            function initialize() {
+
+
+                $(".popup").on('click', function (e) {
+                    modelPopup(this);
+                });
+
+                //Post
+                $('#Save').click(function () {
+                    var url = "/Home/displayPeopleSearch";
+                    var name = $("#Name").val();
+                    $.post(url, { Name: name }, function (data) {
+                        $("#msg").html(data);
+                      
+
+                    });
+                })
+
+                //Post
+                $('#Delete').click(function () {
+                    var url = "/Home/displayPeopleDelete";
+                    var name = $("#Name").val();
+                    $.post(url, { Name: name }, function (data, status) {
+                        $("#msg").html("\nDeletion Status: "+status);
+
+
+                    });
+                })
+
+
+
+                function modelPopup(reff) {
+                    var url = $(reff).data('url');
+
+                    $.get(url).done(function (data) {
+                        debugger;
+                        $("#msg").html(data);
+
+                  
+                    });
+
+                }
+
+
+            }
+
+            $this.init = function () {
+                initialize();
+            };
+        }
+        $(function () {
+            var self = new Index();
+            self.init();
+        });
+    }(jQuery));
+</script>

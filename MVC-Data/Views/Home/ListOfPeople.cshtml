@@ -1,0 +1,59 @@
+﻿@{
+
+    // ViewData["Title"] = "Index";
+}
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+<h1>List of People</h1>
+
+<table style="width:100%">
+    <tr>
+        <th>Name</th>
+        <th>City</th>
+        <th>Phone number</th>
+        <th>Id</th>
+    </tr>
+
+    @foreach (var person in ViewBag.LinkableId)
+    {
+        <tr>
+            <td><a href="">@person.Name</a></td>
+            <td>@person.City</td>
+            <td>@person.PhoneNumber</td>
+            <td>@person.Id</td>
+        </tr>
+    }
+
+</table>
+
+
+
+
+
+<form method="post" asp-controller="Home" asp-action="ListOfPeople">
+    <label>Search by name or city </label><br>
+    <input type="text" name="searchTerm"><br>
+    <br>
+
+    <label>Add person</label><br>
+    <input type="text" name="personName" placeholder="Name"><br>
+    <input type="text" name="personCity" placeholder="City"><br>
+    <input type="text" name="personPhoneNumber" placeholder="Phone Number"><br>
+    <input type="text" name="personId" placeholder="Id"><br>
+
+    <input type="submit" value="Submit" />
+</form>
+
+
+@model IEnumerable<MVC_Data.Models.Person>
+@foreach (var person in Model)
+{
+    <partial name="_partial" model="person"/> 
+    @Html.Partial("_partial", person);
+
+}
